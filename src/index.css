@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system for Ronald T. Sambona's educational platform - Modern Dark Edition */
+
+@layer base {
+  :root {
+    --background: 240 10% 98%;
+    --foreground: 240 10% 5%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 5%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 5%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 220 14% 20%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 5% 95%;
+    --muted-foreground: 240 4% 40%;
+
+    --accent: 262 83% 95%;
+    --accent-foreground: 262 83% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 6% 88%;
+    --input: 240 6% 88%;
+    --ring: 262 83% 58%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 240 10% 98%;
+    --sidebar-foreground: 240 10% 10%;
+    --sidebar-primary: 262 83% 58%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 5% 95%;
+    --sidebar-accent-foreground: 240 10% 10%;
+    --sidebar-border: 240 6% 88%;
+    --sidebar-ring: 262 83% 58%;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --card: 224 71% 6%;
+    --card-foreground: 213 31% 91%;
+
+    --popover: 224 71% 6%;
+    --popover-foreground: 213 31% 91%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 213 31% 91%;
+
+    --secondary: 220 14% 15%;
+    --secondary-foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 223 47% 15%;
+    --accent-foreground: 213 31% 91%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 213 31% 91%;
+
+    --border: 223 47% 15%;
+    --input: 223 47% 15%;
+    --ring: 262 83% 58%;
+    
+    --sidebar-background: 224 71% 6%;
+    --sidebar-foreground: 213 31% 85%;
+    --sidebar-primary: 262 83% 58%;
+    --sidebar-primary-foreground: 213 31% 91%;
+    --sidebar-accent: 223 47% 11%;
+    --sidebar-accent-foreground: 213 31% 85%;
+    --sidebar-border: 223 47% 15%;
+    --sidebar-ring: 262 83% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  .hero-gradient {
+    background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 25%, #7c3aed 50%, #262626 75%, #000000 100%);
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:shadow-purple-500/20;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 hover:from-purple-700 hover:via-blue-700 hover:to-indigo-700;
+  }
+
+  .floating-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .pulse-glow {
+    animation: pulseGlow 4s ease-in-out infinite alternate;
+  }
+
+  .slide-in-left {
+    animation: slideInLeft 0.8s ease-out;
+  }
+
+  .bounce-gentle {
+    animation: bounceGentle 4s ease-in-out infinite;
+  }
+
+  .enhanced-float {
+    animation: enhancedFloat 4s ease-in-out infinite;
+  }
+
+  .moving-img {
+    animation: galleryFloat 6s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.3); }
+  100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 30px rgba(79, 70, 229, 0.4); }
+}
+
+@keyframes slideInLeft {
+  0% { transform: translateX(-100px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes bounceGentle {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-3px) scale(1.01); }
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes enhancedFloat {
+  0%, 100% { transform: translateY(0) scale(1.04); }
+  50% { transform: translateY(-18px) scale(1.08); }
+}
+
+@keyframes galleryFloat {
+  0% { transform: translateY(0) scale(1); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18); }
+  50% { transform: translateY(-18px) scale(1.04); box-shadow: 0 16px 48px 0 rgba(0,0,0,0.22); }
+  100% { transform: translateY(0) scale(1); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18); }
+}
+
+.rotate-slow {
+  animation: rotate 20s linear infinite;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
