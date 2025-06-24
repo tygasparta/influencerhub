@@ -2,6 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, ShoppingCart, User, Facebook, Instagram, Youtube, MessageCircle } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
 
 const Header = () => {
   const socialLinks = [
@@ -82,19 +89,6 @@ const Header = () => {
               )
             ))}
           </div>
-
-          <Button variant="ghost" size="icon" className="hover:scale-110 transition-transform duration-200 group focus:outline-none">
-            <div className="relative flex items-center justify-center">
-              <User className="h-5 w-5" />
-              <span className="absolute left-1/2 -bottom-1 w-6 h-1 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transform -translate-x-1/2 transition-all duration-200"></span>
-            </div>
-          </Button>
-          <Button variant="ghost" size="icon" className="md:hidden hover:scale-110 transition-transform duration-200 group focus:outline-none">
-            <div className="relative flex items-center justify-center">
-              <Menu className="h-5 w-5" />
-              <span className="absolute left-1/2 -bottom-1 w-6 h-1 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transform -translate-x-1/2 transition-all duration-200"></span>
-            </div>
-          </Button>
         </div>
       </div>
     </header>

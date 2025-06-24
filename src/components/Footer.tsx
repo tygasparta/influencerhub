@@ -107,7 +107,9 @@ const Footer = () => {
             <span className="text-gray-400"> ronaldtsambona</span> | 
             <span className="text-gray-400"> sambona</span>
             <br />
-            <span className="text-gray-400">Developed by: Tungasonics dEv Team</span>
+            <span className="block mt-4 text-2xl font-bold text-green-400" style={{ fontFamily: 'monospace' }}>
+              {'<Developed by: Tungasonics dEv Team />'}
+            </span>
           </p>
         </div>
       </div>
