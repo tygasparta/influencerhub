@@ -11,6 +11,7 @@ import About from "./pages/About";
 import InfluenceHub from "./pages/InfluenceHub";
 import NotFound from "./pages/NotFound";
 import Article from "./pages/Article";
+import Lessons from "./pages/Lessons";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/influence" element={<InfluenceHub />} />
+          <Route path="/lessons" element={<Lessons />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

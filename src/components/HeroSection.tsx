@@ -35,14 +35,17 @@ const HeroSection = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 fade-in-up" style={{ animationDelay: '0.6s' }}>
-              <Button size="lg" className="btn-primary text-lg px-8 py-4 hover:scale-105 transition-transform duration-300">
+              <Button size="lg" className="btn-primary text-lg px-8 py-4 hover:scale-105 transition-transform duration-300" onClick={() => {
+                const section = document.getElementById('education');
+                if (section) section.scrollIntoView({ behavior: 'smooth' });
+              }}>
                 Explore Content
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                className="text-white border-white hover:bg-white hover:text-black text-lg px-8 py-4 hover:scale-105 transition-all duration-300"
+                className="text-blue-700 border-white hover:bg-white hover:text-black text-lg px-8 py-4 hover:scale-105 transition-all duration-300"
                 onClick={() => window.open('http://www.youtube.com/@president_sambona', '_blank')}
               >
                 Watch Videos

@@ -5,6 +5,7 @@ import MovingGallery from '@/components/MovingGallery';
 import FeaturedContent from '@/components/FeaturedContent';
 import DailyArticles from '@/components/DailyArticles';
 import Footer from '@/components/Footer';
+import Contact from '@/pages/Contact';
 import { useNavigate } from 'react-router-dom';
 import articles from '@/data/articles.json';
 
@@ -60,6 +61,7 @@ const Index = () => {
             </div>
           </div>
         </section>
+        <section id="contact"><Contact /></section>
         <div id="about"><Footer /></div>
       </main>
     </div>

@@ -47,30 +47,53 @@ const Header = () => {
           <a href="#shop" className="text-foreground hover:text-primary transition-colors font-medium hover:scale-105 transform duration-200">Influence Hub</a>
           <a href="#education" className="text-foreground hover:text-primary transition-colors font-medium hover:scale-105 transform duration-200">Articles</a>
           <a href="#about" className="text-foreground hover:text-primary transition-colors font-medium hover:scale-105 transform duration-200">About</a>
+          <Link to="/lessons" className="text-foreground hover:text-primary transition-colors font-medium hover:scale-105 transform duration-200">English Lessons</Link>
         </nav>
 
         <div className="flex items-center space-x-4 fade-in-up">
           {/* Social Media Links */}
           <div className="hidden lg:flex items-center space-x-2">
-            {socialLinks.map((social) => (
-              <a
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`p-2 rounded-full transition-all duration-300 ${social.color} hover:scale-110 bounce-gentle`}
-                title={social.name}
-              >
-                <social.icon className="h-5 w-5" />
-              </a>
+            {socialLinks.map((social, idx) => (
+              social.name === 'WhatsApp' ? (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-2 rounded-full transition-all duration-300 ${social.color} hover:scale-110 bounce-gentle group focus:outline-none`}
+                  title={social.name}
+                >
+                  <div className="relative flex items-center justify-center">
+                    <social.icon className="h-5 w-5" />
+                    <span className="absolute left-1/2 -bottom-1 w-6 h-1 rounded-full bg-green-400 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transform -translate-x-1/2 transition-all duration-200"></span>
+                  </div>
+                </a>
+              ) : (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-2 rounded-full transition-all duration-300 ${social.color} hover:scale-110 bounce-gentle`}
+                  title={social.name}
+                >
+                  <social.icon className="h-5 w-5" />
+                </a>
+              )
             ))}
           </div>
 
-          <Button variant="ghost" size="icon" className="hover:scale-110 transition-transform duration-200">
-            <User className="h-5 w-5" />
+          <Button variant="ghost" size="icon" className="hover:scale-110 transition-transform duration-200 group focus:outline-none">
+            <div className="relative flex items-center justify-center">
+              <User className="h-5 w-5" />
+              <span className="absolute left-1/2 -bottom-1 w-6 h-1 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transform -translate-x-1/2 transition-all duration-200"></span>
+            </div>
           </Button>
-          <Button variant="ghost" size="icon" className="md:hidden hover:scale-110 transition-transform duration-200">
-            <Menu className="h-5 w-5" />
+          <Button variant="ghost" size="icon" className="md:hidden hover:scale-110 transition-transform duration-200 group focus:outline-none">
+            <div className="relative flex items-center justify-center">
+              <Menu className="h-5 w-5" />
+              <span className="absolute left-1/2 -bottom-1 w-6 h-1 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transform -translate-x-1/2 transition-all duration-200"></span>
+            </div>
           </Button>
         </div>
       </div>
