@@ -4,18 +4,18 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Star, Play, BookOpen, Download } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
 
 const FeaturedContent = () => {
-  const [selectedProduct, setSelectedProduct] = React.useState(null);
-  const [ecocashNumber, setEcocashNumber] = React.useState('');
+  const [selectedProduct, setSelectedProduct] = React.useState<any>(null);
 
   const featuredItems = [
     {
       id: 1,
+      slug: 'influence-hub',
       title: "Influence Hub: Women Empowerment Series",
       description: "Access premium video content focused on women's empowerment and leadership development.",
-      price: "$5.99/year",
+      price: 5.99,
+      priceLabel: "$5.99/year",
       type: "Video Series",
       rating: 4.9,
       icon: <Play className="h-6 w-6" />,
@@ -23,9 +23,11 @@ const FeaturedContent = () => {
     },
     {
       id: 2,
+      slug: 'education-resources',
       title: "Educational Resources",
       description: "Comprehensive English and Shona language learning materials and courses.",
-      price: "$4.99/month",
+      price: 4.99,
+      priceLabel: "$4.99/month",
       type: "Course",
       rating: 4.8,
       icon: <BookOpen className="h-6 w-6" />,
@@ -33,15 +35,85 @@ const FeaturedContent = () => {
     },
     {
       id: 3,
+      slug: 'magazine',
       title: "Women's Magazine Collection",
       description: "Download the latest issues of our empowerment magazine featuring inspiring stories.",
-      price: "$1.99/issue",
+      price: 1.99,
+      priceLabel: "$1.99/issue",
       type: "Magazine",
       rating: 4.7,
       icon: <Download className="h-6 w-6" />,
       gradient: "from-indigo-600 to-purple-600"
     }
   ];
+
+  // Helper: load PayPal SDK script once
+  const loadPayPalSdk = (clientId: string) => {
+    const id = 'paypal-sdk';
+    if (document.getElementById(id)) return Promise.resolve(true);
+    return new Promise<void>((resolve, reject) => {
+      const script = document.createElement('script');
+      script.id = id;
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&components=buttons&currency=USD`;
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('PayPal SDK failed to load'));
+      document.body.appendChild(script);
+    });
+  };
+
+  // When dialog opens (selectedProduct set), render PayPal button inside the dialog container
+  React.useEffect(() => {
+    if (!selectedProduct) return;
+
+    const clientId = (import.meta.env && (import.meta.env.VITE_PAYPAL_CLIENT_ID as string)) || '';
+    const containerId = `paypal-featured-${selectedProduct.slug}`;
+
+    if (!clientId) {
+      // nothing to render without client id
+      return;
+    }
+
+    let mounted = true;
+
+    loadPayPalSdk(clientId)
+      .then(() => {
+        if (!mounted) return;
+        // @ts-ignore
+        const paypal = (window as any).paypal;
+        if (!paypal || !paypal.Buttons) return;
+
+        try {
+          // clear any previous render
+          const el = document.getElementById(containerId);
+          if (el) el.innerHTML = '';
+
+          paypal.Buttons({
+            createOrder: (data: any, actions: any) => {
+              return actions.order.create({
+                purchase_units: [{ amount: { value: selectedProduct.price.toFixed(2) }, description: selectedProduct.title }]
+              });
+            },
+            onApprove: (data: any, actions: any) => {
+              return actions.order.capture().then((details: any) => {
+                alert(`Payment complete. Thank you, ${details.payer?.name?.given_name || 'friend'}! Please send POP to WhatsApp if required.`);
+              });
+            },
+            onError: (err: any) => {
+              console.error('PayPal error', err);
+              alert('Payment failed. Please try again.');
+            }
+          }).render(`#${containerId}`);
+        } catch (err) {
+          console.error('Failed to render PayPal button for featured item', err);
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not load PayPal SDK for featured content', err);
+      });
+
+    return () => { mounted = false; };
+  }, [selectedProduct]);
 
   return (
     <section className="py-20 bg-muted/50 relative overflow-hidden">
@@ -82,7 +154,7 @@ const FeaturedContent = () => {
               </CardHeader>
               <CardContent>
                 <div className="flex items-center justify-between">
-                  <div className="text-2xl font-bold text-primary">{item.price}</div>
+                  <div className="text-2xl font-bold text-primary">{item.priceLabel}</div>
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button className="btn-primary hover:scale-105 transition-transform duration-300" onClick={() => setSelectedProduct(item)}>
@@ -95,10 +167,19 @@ const FeaturedContent = () => {
                       </DialogHeader>
                       <div className="space-y-4 py-2">
                         <p>
-                          To access <span className="font-semibold">{item.title}</span>, please pay using <span className="font-semibold">EcoCash</span> to <span className="font-semibold">0789148212</span> or <span className="font-semibold">OneMoney</span> to <span className="font-semibold">0718340867</span>.
+                          To access <span className="font-semibold">{item.title}</span>, you can pay securely with PayPal using the button below. Cards (Visa/Mastercard) are supported through PayPal.
                         </p>
+
+                        { (import.meta.env && (import.meta.env.VITE_PAYPAL_CLIENT_ID as string)) ? (
+                          <div id={`paypal-featured-${item.slug}`} />
+                        ) : (
+                          <div className="p-3 bg-yellow-50 border-l-4 border-amber-400 rounded">
+                            <p className="text-sm">PayPal is not configured. Add <code className="font-mono">VITE_PAYPAL_CLIENT_ID</code> to a <code className="font-mono">.env</code> file at the project root to enable payments.</p>
+                          </div>
+                        )}
+
                         <p>
-                          After payment, please send your Proof of Payment (POP) to WhatsApp:
+                          After payment, if required, please send your Proof of Payment (POP) to WhatsApp:
                         </p>
                         <a
                           href={`https://wa.me/263718340867?text=${encodeURIComponent(`Hi, I have paid for ${item.title}. Here is my POP.`)}`}

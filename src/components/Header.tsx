@@ -89,6 +89,13 @@ const Header = () => {
               )
             ))}
           </div>
+
+          {/* Donate button */}
+          <div className="ml-2">
+            <Link to="/payment">
+              <Button className="bg-amber-500 hover:bg-amber-600 text-white">Donate</Button>
+            </Link>
+          </div>
         </div>
       </div>
     </header>
