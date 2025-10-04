@@ -46,7 +46,7 @@ const HeroSection = () => {
                 variant="outline"
                 size="lg"
                 className="text-blue-700 border-white hover:bg-white hover:text-black text-lg px-8 py-4 hover:scale-105 transition-all duration-300"
-                onClick={() => window.open('http://www.youtube.com/@president_sambona', '_blank')}
+                onClick={() => window.open('https://www.youtube.com/channel/UCTgWWRA1G3lqGiruT9w9ikg', '_blank')}
               >
                 Watch Videos
               </Button>

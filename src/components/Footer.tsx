@@ -25,7 +25,7 @@ const Footer = () => {
     },
     { 
       name: 'YouTube', 
-      url: 'http://www.youtube.com/@president_sambona', 
+      url: 'https://www.youtube.com/channel/UCTgWWRA1G3lqGiruT9w9ikg', 
       icon: Youtube,
       color: 'hover:text-red-400' 
     },
